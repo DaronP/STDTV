@@ -286,6 +286,8 @@
     <Compile Include="Assets\Scripts\Menus\LoadScene.cs" />
     <Compile Include="Assets\Scripts\Menus\QuitGame.cs" />
     <Compile Include="Assets\Scripts\Player_chef.cs" />
+    <Compile Include="Assets\Scripts\player_Melson.cs" />
+    <Compile Include="Assets\Scripts\Player_pop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
