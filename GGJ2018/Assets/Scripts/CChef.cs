@@ -12,6 +12,8 @@ public class CChef : MonoBehaviour, Jugador
     public string horAxis;
     public string jumpAxis;
 
+    private Vector3 jugadorTras;
+    private float factorVelocidad;
     private Rigidbody2D rb;
     private Animator anim;
     private bool isTouchingGround;
@@ -21,6 +23,8 @@ public class CChef : MonoBehaviour, Jugador
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        jugadorTras = new Vector3(0.0f, 0.6f, 0.0f);
+        factorVelocidad = 21.3f;
     }
 
     #region UnityCallbacks
@@ -45,7 +49,21 @@ public class CChef : MonoBehaviour, Jugador
 
     public void movimiento()
     {
-        
+        jugadorTras.y = 0;
+        jugadorTras.x = 0;
+        jugadorTras.z = 0;
+
+        if (Input.GetAxis("Horizontal") > 0f)
+        {
+            jugadorTras.x = factorVelocidad * Time.deltaTime;
+            transform.Translate(jugadorTras);
+        }
+        if (Input.GetAxis("Horizontal") < 0f)
+        {
+            jugadorTras.x = -factorVelocidad * Time.deltaTime;
+            transform.Translate(jugadorTras);
+        }
+
     }
 
     public void block()
@@ -73,14 +91,6 @@ public class CChef : MonoBehaviour, Jugador
         if (isTouchingGround)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            Debug.Log("First Jump");
-        }
-        else if (!isTouchingGround && !dblJumped)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            dblJumped = true;
-            Debug.Log("Double jumped.");
         }
     }
 
@@ -97,8 +107,12 @@ public class CChef : MonoBehaviour, Jugador
         if (isTouchingGround)
         {
             //animator.SetBool("Jumping", false);
-            dblJumped = false;
         }
         //else animator.SetBool("Jumping", true);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isTouchingGround = true;
     }
 }
