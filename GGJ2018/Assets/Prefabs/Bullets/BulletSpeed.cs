@@ -6,6 +6,7 @@ public class BulletSpeed : MonoBehaviour {
 
 	public float speed;
 
+	//private Jugador jugador {get{return FindObjectOfType<jugador>(); } set { jugador = value; } }
 	// Use this for initialization
 	void Start () {
 		
@@ -14,7 +15,6 @@ public class BulletSpeed : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		transform.Translate (Vector3.left * speed * Time.deltaTime);
-		
+		//transform.Translate (jugador.direccion * speed * Time.deltaTime);
 	}
 }

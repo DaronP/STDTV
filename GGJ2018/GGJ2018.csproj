@@ -283,15 +283,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Prefabs\Bullets\BulletSpeed.cs" />
+    <Compile Include="Assets\Prefabs\Bullets\WallMovement.cs" />
     <Compile Include="Assets\Scripts\CChef.cs" />
     <Compile Include="Assets\Scripts\Drump.cs" />
     <Compile Include="Assets\Scripts\Jugador.cs" />
     <Compile Include="Assets\Scripts\Jugador_Drump.cs" />
     <Compile Include="Assets\Scripts\Menus\LoadScene.cs" />
     <Compile Include="Assets\Scripts\Menus\QuitGame.cs" />
+    <Compile Include="Assets\Scripts\Naturo_Heavy.cs" />
     <Compile Include="Assets\Scripts\Player_chef.cs" />
     <Compile Include="Assets\Scripts\player_Melson.cs" />
     <Compile Include="Assets\Scripts\Player_pop.cs" />
+    <Compile Include="Assets\Scripts\Trigger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
