@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface Player_chef
 {
+	void movimiento();
 	void salto();
 	void block();
 	void lightAttack();
