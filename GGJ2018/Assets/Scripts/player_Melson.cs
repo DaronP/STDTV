@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player_Melson : MonoBehaviour {
-
+public class player_Melson : MonoBehaviour 
+{
 	public Transform groundPoint;
 	public LayerMask groundMask;
 	public float groundDetectionDistance;
@@ -16,15 +17,14 @@ public class player_Melson : MonoBehaviour {
 	private bool isTouchingGround;
 	private bool dblJumped;
 
-	// Use this for initialization
-	void Start () 
+	private void Start () 
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	private void Update () 
 	{
 		// detectar input horizontal
 		movimiento();
@@ -43,14 +43,13 @@ public class player_Melson : MonoBehaviour {
 	}
 
 
-	void movimiento();
-	void salto();
-	public void block()
+	public void movimiento(){}
+	public void salto()
 	{
 		if (isTouchingGround)
 		{
-			rb.AddForce(0f);
-			Debug.Log("BLock");
+			rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+			Debug.Log("First Jump");
 		}
 		else if (!isTouchingGround && !dblJumped)
 		{
@@ -60,9 +59,30 @@ public class player_Melson : MonoBehaviour {
 			Debug.Log("Double jumped.");
 		}
 	}
-	void lightAttack();
-	void heavyAttack();
-	void dab();
-	void vergazo();
+	public void block()
+	{
+
+		rb.AddForce(Vector2.up * jumpForce * 0f, ForceMode2D.Impulse);
+			Debug.Log("BLock");
+	}
+	void lightAttack(){
+	}
+	void heavyAttack(){
+	}
+	void dab(){}
+	void vergazo(){}
+
+	private void DetectPlayerTouchingGround()
+	{
+		isTouchingGround = Physics2D.OverlapCircle(groundPoint.position, groundDetectionDistance,
+			groundMask);
+		Debug.Log(isTouchingGround);
+		if (isTouchingGround)
+		{
+			//animator.SetBool("Jumping", false);
+			dblJumped = false;
+		}
+		//else animator.SetBool("Jumping", true);
+	}
 
 }
