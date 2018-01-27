@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 60515568}
   - component: {fileID: 60515567}
   - component: {fileID: 60515572}
+  - component: {fileID: 60515573}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -252,6 +253,18 @@ MonoBehaviour:
   jumpForce: 5
   horAxis: Horizontal
   jumpAxis: Jump
+--- !u!114 &60515573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 60515566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d455bbd44c63c924a9b26f37ff46dea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1003633429134670, guid: 342efe3c6c2e1a741824fecae7d25fa9, type: 2}
 --- !u!1 &1191764086
 GameObject:
   m_ObjectHideFlags: 0
