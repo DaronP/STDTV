@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drump : MonoBehaviour {
+public class Naturo_Heavy : MonoBehaviour {
 
 	public GameObject bullet;
-	public GameObject spawner;
 
 	// Use this for initialization
 	void Start () {
@@ -16,18 +15,18 @@ public class Drump : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown("joystick button 1"))
 		{
-			Wall ();
-
+			Shooting ();
+			StartCoroutine (Wait ());
 		}
 	}
 
-	void Wall(){
-		Vector2 pos = new Vector3 (transform.position.x, transform.position.y, 0f);
+	void Shooting(){
+		Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
 		Instantiate (bullet, pos, Quaternion.identity);
 		Destroy (bullet, 2f);
 	}
 	IEnumerator Wait()
 	{
-		yield return new WaitForSeconds (500);
+		yield return new WaitForSeconds (5);
 	}
 }
