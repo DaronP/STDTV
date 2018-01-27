@@ -12,7 +12,6 @@ public class Jugador : MonoBehaviour
 
     Animator animator;
 
-
     [System.Serializable]
     public class AnimationSettings
     {
@@ -46,6 +45,16 @@ public class Jugador : MonoBehaviour
     }
     [SerializeField]
     public JumpSettings jump;
+
+    [System.Serializable]
+    public class Health
+    {
+        public int golpeRecivido = 0;
+        public int golpeDab = 0;
+        public int golpeDado = 0;
+    }
+    [SerializeField]
+    public Health vida;
 
 
     private Rigidbody2D rb;
@@ -134,11 +143,12 @@ public class Jugador : MonoBehaviour
     }
     void lightAttack() { }
     void dab() { }
-    void vergazo()
+    void vergazo(int hit)
     {
         if (movement.isBlocking == true)
         {
             return;
         }
+        vida.golpeRecivido = vida.golpeRecivido + hit;
     }
 }
