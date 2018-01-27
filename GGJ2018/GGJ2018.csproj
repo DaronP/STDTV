@@ -284,6 +284,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CChef.cs" />
     <Compile Include="Assets\Scripts\Jugador.cs" />
+    <Compile Include="Assets\Scripts\Jugador_Drump.cs" />
     <Compile Include="Assets\Scripts\Menus\LoadScene.cs" />
     <Compile Include="Assets\Scripts\Menus\QuitGame.cs" />
     <Compile Include="Assets\Scripts\Player_chef.cs" />
