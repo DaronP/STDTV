@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSpeed : MonoBehaviour {
+public class FemiBullet : MonoBehaviour {
 
 	private Jugador jugador {get{return FindObjectOfType<jugador>(); } set { jugador = value; } }
 

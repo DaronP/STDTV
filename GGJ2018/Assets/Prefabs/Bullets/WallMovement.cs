@@ -5,6 +5,9 @@ using UnityEngine;
 public class WallMovement : MonoBehaviour {
 
 	private Rigidbody2D rb;
+	public float speed;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -14,11 +17,9 @@ public class WallMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		rb.AddForce (Vector2.up * 2);
+		rb.AddForce (Vector2.up * speed);
 
 	}
 
-	void OnTriggerEnter2D(Collider2D col){
-		Destroy (col);
-	}
+
 }

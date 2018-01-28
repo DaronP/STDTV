@@ -1,9 +1,13 @@
 ﻿<Properties StartupItem="GGJ2018.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player_chef.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Heavies\JuanJesusDelRosario_Heavy.cs">
     <Files>
-      <File FileName="Assets\Scripts\Jugador.cs" Line="7" Column="5" />
-      <File FileName="Assets\Scripts\Player_chef.cs" Line="11" Column="13" />
+      <File FileName="Assets\Scripts\Heavies\Naturo_Heavy.cs" Line="7" Column="2" />
+      <File FileName="Assets\Scripts\Heavies\Feminazi_Heavy.cs" Line="26" Column="3" />
+      <File FileName="Assets\Scripts\Heavies\Pop_Heavy.cs" Line="22" Column="39" />
+      <File FileName="Assets\Scripts\Heavies\Hipster_Heavy.cs" Line="29" Column="3" />
+      <File FileName="Assets\Scripts\Heavies\Melson_Heavy.cs" Line="29" Column="3" />
+      <File FileName="Assets\Scripts\Heavies\JuanJesusDelRosario_Heavy.cs" Line="29" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
