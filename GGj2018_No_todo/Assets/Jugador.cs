@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -9,7 +10,7 @@ using UnityEngine;
 
 public class Jugador : MonoBehaviour
 {
-
+    public int playerNumber;
     Animator animator;
 
     [System.Serializable]
@@ -64,6 +65,12 @@ public class Jugador : MonoBehaviour
     Vector3 jugadorTras;
     private int direccion;
 
+    /*void Awake()
+    {
+        animator = GetComponent<Animator>();
+        SetupAnimator();
+    }*/
+
     // Use this for initialization
     void Start()
     {
@@ -76,15 +83,25 @@ public class Jugador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movimiento();
-        salto();
-        block();
-
+        var inputDevice = (InputManager.Devices.Count > playerNumber) ? InputManager.Devices[playerNumber] : null;
+        if (inputDevice != null)
+        {
+            movimiento(inputDevice);
+            salto(inputDevice);
+            block(inputDevice);
+            lightAttack(inputDevice);
+            dab(inputDevice);
+        }
         // detectar si el jugador esta tocando el piso
         DetectPlayerTouchingGround();
     }
 
-    void movimiento()
+    public void Animate(float horizontal)
+    {
+        
+    }
+
+    void movimiento(InputDevice dev)
     {
         if (movement.isBlocking == true)
         {
@@ -95,13 +112,13 @@ public class Jugador : MonoBehaviour
         jugadorTras.x = 0;
         jugadorTras.z = 0;
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (dev.LeftStickX.Value > 0)
         {
             jugadorTras.x = movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
             direccion = 1;
         }
-        if (Input.GetAxis("Horizontal") < 0)
+        if (dev.LeftStickX.Value < 0)
         {
             jugadorTras.x = -movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
@@ -109,9 +126,9 @@ public class Jugador : MonoBehaviour
         }
 
     }
-    void salto()
+    void salto(InputDevice dev)
     {
-        if (Input.GetAxis("Vertical") > 0)
+        if (dev.LeftStickY.Value > 0)
         {
             if (isTouchingGround)
             {
@@ -131,18 +148,28 @@ public class Jugador : MonoBehaviour
         }
         //else animator.SetBool("Jumping", true);
     }
-    void block()
+    void block(InputDevice dev)
     {
         movement.isBlocking = false;
+        if (isTouchingGround == false)
+        {
+            return;
+        }
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (dev.LeftStickY.Value < 0)
         {
             movement.isBlocking = true;
 
         }
     }
-    void lightAttack() { }
-    void dab() { }
+    void lightAttack(InputDevice dev)
+    {
+
+    }
+    void dab(InputDevice dev)
+    {
+
+    }
     void vergazo(int hit)
     {
         if (movement.isBlocking == true)
@@ -150,5 +177,14 @@ public class Jugador : MonoBehaviour
             return;
         }
         vida.golpeRecivido = vida.golpeRecivido + hit;
+    }
+
+    void SetupAnimator()
+    {
+        Animator wantedAnim = GetComponentsInChildren<Animator>()[1];
+        Avatar wantedAvater = wantedAnim.avatar;
+
+        animator.avatar = wantedAvater;
+        Destroy(wantedAnim);
     }
 }
