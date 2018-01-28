@@ -11,7 +11,12 @@ using InControl;
 public class Jugador : MonoBehaviour
 {
     public int playerNumber;
-    Animator animator;
+    public Animator animator;
+    public LayerMask otros;
+    public Collider2D hurtbox;
+
+    private bool animationPlaying;
+    private float curAnimTime = 0f;
 
     [System.Serializable]
     public class AnimationSettings
@@ -57,19 +62,23 @@ public class Jugador : MonoBehaviour
     [SerializeField]
     public Health vida;
 
+    public BoxCollider2D lightAttackerRight;
+    public BoxCollider2D lightAttackerLeft;
+    private bool isAttacking;
+    private float lightAttackActiveTimer = 1f;
+    private float lightAttackRecover = 1f;
 
     private Rigidbody2D rb;
-    private Animator anim;
     private bool isTouchingGround;
 
     Vector3 jugadorTras;
-    public int direccion;
+    private int direccion;
 
-    /*void Awake()
+    void Awake()
     {
         animator = GetComponent<Animator>();
-        SetupAnimator();
-    }*/
+        //SetupAnimator();
+    }
 
     // Use this for initialization
     void Start()
@@ -77,7 +86,6 @@ public class Jugador : MonoBehaviour
         jugadorTras = new Vector3(0.0f, 0.0f, 0.0f);
 
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -94,6 +102,17 @@ public class Jugador : MonoBehaviour
         }
         // detectar si el jugador esta tocando el piso
         DetectPlayerTouchingGround();
+
+        // testing animacion
+        if(animationPlaying)
+        {
+            curAnimTime += Time.deltaTime;
+            
+            if(curAnimTime > animator.GetCurrentAnimatorClipInfo(0)[0].clip.length)
+            {
+
+            }
+        }
     }
 
     public void Animate(float horizontal)
@@ -117,18 +136,20 @@ public class Jugador : MonoBehaviour
             jugadorTras.x = movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
             direccion = 1;
+            transform.localScale = new Vector3(-1f, 1f, 1f); // escala normal
         }
         if (dev.DPadLeft.IsPressed)
         {
             jugadorTras.x = -movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
             direccion = -1;
+            transform.localScale = Vector3.one; // escala al reves
         }
 
     }
     void salto(InputDevice dev)
     {
-        if (dev.DPadUp.IsPressed)
+        if (dev.DPadUp.WasPressed)
         {
             Debug.Log("Player " + playerNumber + " JUMP!");
             if (isTouchingGround)
@@ -145,31 +166,74 @@ public class Jugador : MonoBehaviour
 
         if (isTouchingGround)
         {
-            //animator.SetBool("Jumping", false);
+            animator.SetBool(animations.jumpBool, false);
         }
-        //else animator.SetBool("Jumping", true);
+        else animator.SetBool(animations.jumpBool, true);
     }
     void block(InputDevice dev)
     {
         movement.isBlocking = false;
+        hurtbox.enabled = true;
         if (isTouchingGround == false)
         {
             return;
         }
 
-        if (dev.DPadDown.IsPressed)
+        if(dev.DPadDown.IsPressed)
         {
             Debug.Log("Player " + playerNumber + " BLOCK!");
+            hurtbox.enabled = false;
+            animator.SetBool(animations.block, true);
             movement.isBlocking = true;
         }
     }
+    
     void lightAttack(InputDevice dev)
     {
-        if(dev.Action1)
+        if (dev.Action1.WasPressed)
         {
-            Debug.Log("Player " + playerNumber + " LIGHT!");
+            if (isAttacking==false && movement.isBlocking==false)
+            {
+                Collider2D hitCol = null;
+                if (direccion>0)
+                {
+                    
+                    if (hitCol = Physics2D.OverlapBox(lightAttackerRight.transform.position, lightAttackerRight.size, 0,otros))
+                    {
+                        Debug.Log("Pego right");
+                    }
+
+                }
+                else
+                {
+                    if (hitCol = Physics2D.OverlapBox(lightAttackerLeft.transform.position, lightAttackerLeft.size,0,otros))
+                    {
+                        Debug.Log("Pego left");
+                    }
+                }
+                if (hitCol != null)
+                {
+                    Jugador j = hitCol.gameObject.GetComponent<Jugador>();
+                    if (j != null)
+                    {
+                        j.vergazo(1);
+                    }
+                    else
+                    {
+                        Debug.Log("DIDNT FIND JUGADOR");
+                    }
+                }
+                else
+                {
+                    Debug.Log("NULL COLLIDER");
+                }
+                lightAttackerLeft.enabled = false;
+                lightAttackerRight.enabled = false;
+            }
         }
+
     }
+
     void dab(InputDevice dev)
     {
         if (dev.Action4)
@@ -177,13 +241,14 @@ public class Jugador : MonoBehaviour
             Debug.Log("Player " + playerNumber + " DAB!");
         }
     }
-    public void vergazo(int hit)
+    void vergazo(int hit)
     {
         if (movement.isBlocking == true)
         {
             return;
         }
         vida.golpeRecivido = vida.golpeRecivido + hit;
+        Debug.Log(gameObject.name + " RECEIVED " + hit + " DAMAGE!");
     }
 
     void SetupAnimator()
