@@ -395,6 +395,7 @@
     <Compile Include="Assets\Prefabs\Bullets\BulletSpeed.cs" />
     <Compile Include="Assets\Prefabs\Bullets\FemiBullet.cs" />
     <Compile Include="Assets\Prefabs\Bullets\WallMovement.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Heavies\Chef_Heavy.cs" />
     <Compile Include="Assets\Scripts\Heavies\Drump.cs" />
     <Compile Include="Assets\Scripts\Heavies\Feminazi_Heavy.cs" />
