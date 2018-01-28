@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletSpeed : MonoBehaviour {
 
-	private Jugador jugador {get{return FindObjectOfType<jugador>(); } set { jugador = value; } }
+	private Jugador jugador {get{return FindObjectOfType<Jugador>(); } set { jugador = value; } }
 
 	private Rigidbody2D rb;
 	public float speed;
@@ -27,13 +27,18 @@ public class BulletSpeed : MonoBehaviour {
 		}			
 	}
 
-	void OnCollisionEnter2D(Collider col){
+	void OnCollisionEnter2D(Collision2D col){
 
-		if (col.tag == "Player") {
-			Destroy (this);
+		if (col.gameObject.tag == "Player") {
+			Destroy (this.gameObject);
 			jugador.vergazo (10);
 		}
 
 
 	}
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Destroy(this.gameObject);
+    }
 }

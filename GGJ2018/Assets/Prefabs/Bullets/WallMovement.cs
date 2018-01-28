@@ -22,4 +22,9 @@ public class WallMovement : MonoBehaviour {
 	}
 
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Destroy(this.gameObject);
+    }
+
 }

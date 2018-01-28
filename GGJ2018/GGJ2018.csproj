@@ -410,7 +410,6 @@
     <Compile Include="Assets\Scripts\Player_chef.cs" />
     <Compile Include="Assets\Scripts\player_Melson.cs" />
     <Compile Include="Assets\Scripts\Player_pop.cs" />
-    <Compile Include="Assets\Scripts\Trigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\InControl\README\README.txt" />
