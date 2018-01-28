@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class WallMovement : MonoBehaviour {
 
-	private Rigidbody2D rb;
+    private Jugador jugador { get { return FindObjectOfType<Jugador>(); } set { jugador = value; } }
+
+    private Rigidbody2D rb;
 	public float speed;
 
 
@@ -27,4 +29,12 @@ public class WallMovement : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+            jugador.vergazo(10);
+        }
+    }
 }

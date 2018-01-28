@@ -23,6 +23,7 @@ public class Jugador : MonoBehaviour
     {
         public string horizontalVelocityFloat = "Horizontal";
         public string jumpBool = "jump";
+        public string idleBool = "idle";
         public string groundedBool = "isGrounded";
         public string lightAttack = "lightAttack";
         public string heavyAttack = "heavyAttack";
@@ -137,13 +138,22 @@ public class Jugador : MonoBehaviour
             transform.Translate(jugadorTras);
             direccion = 1;
             transform.localScale = new Vector3(-1f, 1f, 1f); // escala normal
+            if (animator.GetFloat(animations.horizontalVelocityFloat) == 0f)
+                animator.SetFloat(animations.horizontalVelocityFloat, 1f);
         }
-        if (dev.DPadLeft.IsPressed)
+        else if (dev.DPadLeft.IsPressed)
         {
             jugadorTras.x = -movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
             direccion = -1;
             transform.localScale = Vector3.one; // escala al reves
+            if (animator.GetFloat(animations.horizontalVelocityFloat) == 0f)
+                animator.SetFloat(animations.horizontalVelocityFloat, 1f);
+        }
+        else
+        {
+            animator.SetFloat(animations.horizontalVelocityFloat, 0f);
+            animator.SetBool(animations.idleBool, true);
         }
 
     }
@@ -155,6 +165,7 @@ public class Jugador : MonoBehaviour
             if (isTouchingGround)
             {
                 rb.AddForce(Vector2.up * jump.jumpForce, ForceMode2D.Impulse);
+                animator.SetBool(animations.jumpBool, true);
             }
         }
     }
