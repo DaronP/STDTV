@@ -28,6 +28,9 @@ public class FemiBullet : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collider col){
-		Destroy (gameObject);
+		if (col.tag == "Player") {
+			Destroy (this);
+			jugador.vergazo (10);
+		}
 	}
 }
