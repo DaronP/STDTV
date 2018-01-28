@@ -72,7 +72,7 @@ public class Jugador : MonoBehaviour
     private bool isTouchingGround;
 
     Vector3 jugadorTras;
-    private int direccion;
+    public int direccion;
 
     void Awake()
     {
@@ -241,7 +241,7 @@ public class Jugador : MonoBehaviour
             Debug.Log("Player " + playerNumber + " DAB!");
         }
     }
-    void vergazo(int hit)
+    public void vergazo(int hit)
     {
         if (movement.isBlocking == true)
         {
