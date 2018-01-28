@@ -112,13 +112,13 @@ public class Jugador : MonoBehaviour
         jugadorTras.x = 0;
         jugadorTras.z = 0;
 
-        if (dev.LeftStickX.Value > 0)
+        if (dev.DPadRight.IsPressed)
         {
             jugadorTras.x = movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
             direccion = 1;
         }
-        if (dev.LeftStickX.Value < 0)
+        if (dev.DPadLeft.IsPressed)
         {
             jugadorTras.x = -movement.factorVelocidad * Time.deltaTime;
             transform.Translate(jugadorTras);
@@ -128,8 +128,9 @@ public class Jugador : MonoBehaviour
     }
     void salto(InputDevice dev)
     {
-        if (dev.LeftStickY.Value > 0)
+        if (dev.DPadUp.IsPressed)
         {
+            Debug.Log("Player " + playerNumber + " JUMP!");
             if (isTouchingGround)
             {
                 rb.AddForce(Vector2.up * jump.jumpForce, ForceMode2D.Impulse);
@@ -156,19 +157,25 @@ public class Jugador : MonoBehaviour
             return;
         }
 
-        if (dev.LeftStickY.Value < 0)
+        if (dev.DPadDown.IsPressed)
         {
+            Debug.Log("Player " + playerNumber + " BLOCK!");
             movement.isBlocking = true;
-
         }
     }
     void lightAttack(InputDevice dev)
     {
-
+        if(dev.Action1)
+        {
+            Debug.Log("Player " + playerNumber + " LIGHT!");
+        }
     }
     void dab(InputDevice dev)
     {
-
+        if (dev.Action4)
+        {
+            Debug.Log("Player " + playerNumber + " DAB!");
+        }
     }
     void vergazo(int hit)
     {
